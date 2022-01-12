@@ -30,8 +30,7 @@ public class ReceiveDamage : NetworkBehaviour
         normalizedHealth = currentHealth/10.0f;
         
         if(isLocalPlayer){
-            healthBarScript = GameObject.Find("HealthBar").GetComponent<HealthBar>();
-            healthBarScript.SetSize(normalizedHealth);
+            GameObject.Find("HealthBar").GetComponent<HealthBar>().SetSize(normalizedHealth);
         }  
     }
 
@@ -66,7 +65,7 @@ public class ReceiveDamage : NetworkBehaviour
         }
         if(isLocalPlayer){
             normalizedHealth = currentHealth / 10.0f;
-            healthBarScript.SetSize(normalizedHealth);
+            GameObject.Find("HealthBar").GetComponent<HealthBar>().SetSize(normalizedHealth);
         }
     }
 
@@ -77,7 +76,7 @@ public class ReceiveDamage : NetworkBehaviour
             transform.position = initialPosition;
             currentHealth = maxHealth;
             normalizedHealth = currentHealth/10.0f;
-            healthBarScript.SetSize(normalizedHealth);
+            GameObject.Find("HealthBar").GetComponent<HealthBar>().SetSize(normalizedHealth);
         }
        
     }
