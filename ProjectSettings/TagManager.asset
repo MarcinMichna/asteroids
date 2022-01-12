@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Undefined
   - Enemy
-  - Bullet
   - Ship
+  - Bullet
   layers:
   - Default
   - TransparentFX
