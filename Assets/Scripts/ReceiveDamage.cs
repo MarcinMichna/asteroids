@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Mirror;
 
 public class ReceiveDamage : NetworkBehaviour
@@ -21,6 +22,11 @@ public class ReceiveDamage : NetworkBehaviour
  
     [SerializeField]
     private bool destroyOnDeath;
+    
+    private  ScoreController scoreController;
+
+    [SerializeField]
+    public int experience;
 
     private Vector2 initialPosition;
     
@@ -33,10 +39,25 @@ public class ReceiveDamage : NetworkBehaviour
         normalizedHealth = currentHealth/10.0f;
 
         healthBar = GameObject.Find("HealthBar").GetComponent<HealthBar>();
+        scoreController = GameObject.Find("Score").GetComponent<ScoreController>();
         
         if(isLocalPlayer){
             GameObject.Find("HealthBar").GetComponent<HealthBar>().SetSize(normalizedHealth);
         }  
+    }
+
+    private void Update()
+    {
+        if (isServer && !isPlayer)
+        {
+            if (transform.position.y < -4)
+            {
+                healthBar.health -= 1;
+                Destroy(gameObject, 0);
+            }
+            
+        }
+        
     }
 
     void OnTriggerEnter2D (Collider2D collider)
@@ -50,7 +71,7 @@ public class ReceiveDamage : NetworkBehaviour
 
     void TakeDamage (int amount)
     {
-        if(isServer)
+        if(isServer && !isPlayer)
         {
             currentHealth -= amount;
            
@@ -59,6 +80,7 @@ public class ReceiveDamage : NetworkBehaviour
             {
                 if(destroyOnDeath)
                 {
+                    scoreController.score += experience;
                     Destroy(gameObject);
                 }
                 else

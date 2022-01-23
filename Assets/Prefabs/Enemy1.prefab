@@ -165,9 +165,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  maxHealth: 10
+  maxHealth: 3
+  isPlayer: 0
   enemyTag: Bullet
   destroyOnDeath: 1
+  ScoreController: {fileID: 0}
+  experience: 50
 --- !u!114 &-6705331532195884971
 MonoBehaviour:
   m_ObjectHideFlags: 0

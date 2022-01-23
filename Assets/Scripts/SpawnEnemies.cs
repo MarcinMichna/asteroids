@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
 public class SpawnEnemies : NetworkBehaviour
 {
@@ -12,11 +14,19 @@ public class SpawnEnemies : NetworkBehaviour
     private float spawnInterval = 1.0f;
 
     [SerializeField]
-    private float enemySpeed = 1.0f;
+    public float enemySpeed = 1.0f;
+
+    [SerializeField] private float difficultyFactor;
 
     public override void OnStartServer()
     {
         InvokeRepeating("SpawnEnemy", this.spawnInterval, this.spawnInterval);
+    }
+
+    private void Update()
+    {
+        enemySpeed += difficultyFactor * Time.deltaTime;
+        print(enemySpeed);
     }
 
     void SpawnEnemy()
