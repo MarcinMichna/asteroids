@@ -6,7 +6,10 @@ public class ReceiveDamage : NetworkBehaviour
     [SerializeField]
     private int maxHealth = 10;
     
-    private HealthBar healthBarScript;
+    private HealthBar healthBar;
+
+    [SerializeField]
+    public bool isPlayer;
 
     [SyncVar]
     private int currentHealth;
@@ -28,6 +31,8 @@ public class ReceiveDamage : NetworkBehaviour
         initialPosition = transform.position;
 
         normalizedHealth = currentHealth/10.0f;
+
+        healthBar = GameObject.Find("HealthBar").GetComponent<HealthBar>();
         
         if(isLocalPlayer){
             GameObject.Find("HealthBar").GetComponent<HealthBar>().SetSize(normalizedHealth);
@@ -63,9 +68,9 @@ public class ReceiveDamage : NetworkBehaviour
                 }
             }
         }
-        if(isLocalPlayer){
-            normalizedHealth = currentHealth / 10.0f;
-            GameObject.Find("HealthBar").GetComponent<HealthBar>().SetSize(normalizedHealth);
+        if(isServer && isPlayer)
+        {
+            healthBar.health -= amount;
         }
     }
 

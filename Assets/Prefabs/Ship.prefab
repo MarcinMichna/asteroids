@@ -228,5 +228,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   maxHealth: 10
+  isPlayer: 1
   enemyTag: Enemy
   destroyOnDeath: 0
